@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct CommuniMateApp: App {
+    @StateObject var connector = Connector()
     var body: some Scene {
         WindowGroup {
-            Main()
+            Main().environmentObject(connector)
         }
     }
 }
