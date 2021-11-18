@@ -15,7 +15,7 @@ struct Main: View {
                 ConversationsMainView().tabItem {
                     Image(systemName: "message.circle.fill")
                     Text("Conversations") }.tag(1)
-                Text("Settings").tabItem {
+                Settings().tabItem {
                     Image(systemName: "gearshape.circle.fill")
                     Text("Settings") }.tag(2)
             }.navigationBarHidden(true)
