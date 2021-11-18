@@ -8,19 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		37B235EC27469C5E00BDABCC /* CommuniMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */; };
-		37B235EE27469C5E00BDABCC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B235ED27469C5E00BDABCC /* ContentView.swift */; };
 		37B235F027469C6000BDABCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B235EF27469C6000BDABCC /* Assets.xcassets */; };
 		37B235F327469C6000BDABCC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B235F227469C6000BDABCC /* Preview Assets.xcassets */; };
 		37B235FC27469CD400BDABCC /* Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B235FB27469CD400BDABCC /* Connector.swift */; };
+		37B235FE27469DBE00BDABCC /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B235FD27469DBE00BDABCC /* Main.swift */; };
+		37B2360027469E1300BDABCC /* ConversationMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B235FF27469E1300BDABCC /* ConversationMainView.swift */; };
+		37B2360227469E9900BDABCC /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B2360127469E9900BDABCC /* Host.swift */; };
+		37B2360427469EDC00BDABCC /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B2360327469EDC00BDABCC /* Guest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		37B235E827469C5E00BDABCC /* CommuniMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommuniMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuniMateApp.swift; sourceTree = "<group>"; };
-		37B235ED27469C5E00BDABCC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		37B235EF27469C6000BDABCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37B235F227469C6000BDABCC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		37B235FB27469CD400BDABCC /* Connector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connector.swift; sourceTree = "<group>"; };
+		37B235FD27469DBE00BDABCC /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		37B235FF27469E1300BDABCC /* ConversationMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationMainView.swift; sourceTree = "<group>"; };
+		37B2360127469E9900BDABCC /* Host.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
+		37B2360327469EDC00BDABCC /* Guest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +62,6 @@
 				37B235FA27469C8700BDABCC /* Model */,
 				37B235F927469C7E00BDABCC /* Views */,
 				37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */,
-				37B235ED27469C5E00BDABCC /* ContentView.swift */,
 				37B235EF27469C6000BDABCC /* Assets.xcassets */,
 				37B235F127469C6000BDABCC /* Preview Content */,
 			);
@@ -74,6 +79,10 @@
 		37B235F927469C7E00BDABCC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				37B235FD27469DBE00BDABCC /* Main.swift */,
+				37B235FF27469E1300BDABCC /* ConversationMainView.swift */,
+				37B2360127469E9900BDABCC /* Host.swift */,
+				37B2360327469EDC00BDABCC /* Guest.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -156,8 +165,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37B2360027469E1300BDABCC /* ConversationMainView.swift in Sources */,
+				37B2360227469E9900BDABCC /* Host.swift in Sources */,
+				37B2360427469EDC00BDABCC /* Guest.swift in Sources */,
 				37B235FC27469CD400BDABCC /* Connector.swift in Sources */,
-				37B235EE27469C5E00BDABCC /* ContentView.swift in Sources */,
+				37B235FE27469DBE00BDABCC /* Main.swift in Sources */,
 				37B235EC27469C5E00BDABCC /* CommuniMateApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
