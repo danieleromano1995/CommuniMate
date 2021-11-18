@@ -18,6 +18,7 @@ enum Kind : Codable{
 class Message : Encodable, Decodable{
     var body = ""
     let kind : Kind
+    var categories : [Int] = []
     
     init(kind: Kind){
         self.kind = kind

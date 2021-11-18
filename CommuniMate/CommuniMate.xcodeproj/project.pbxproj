@@ -59,9 +59,9 @@
 		37B235EA27469C5E00BDABCC /* CommuniMate */ = {
 			isa = PBXGroup;
 			children = (
+				37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */,
 				37B235FA27469C8700BDABCC /* Model */,
 				37B235F927469C7E00BDABCC /* Views */,
-				37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */,
 				37B235EF27469C6000BDABCC /* Assets.xcassets */,
 				37B235F127469C6000BDABCC /* Preview Content */,
 			);
