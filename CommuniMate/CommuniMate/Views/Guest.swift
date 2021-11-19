@@ -13,7 +13,7 @@ struct Guest: View {
     @Binding var isStarting : Bool
     
     var body: some View {
-        NavigationLink(destination: Text("Categories").navigationBarBackButtonHidden(true), isActive: $connector.isStarting){
+        NavigationLink(destination: Categories().navigationBarBackButtonHidden(true), isActive: $connector.isStarting){
             EmptyView()
         }
         List{

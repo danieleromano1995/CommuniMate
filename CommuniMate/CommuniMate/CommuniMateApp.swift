@@ -10,9 +10,17 @@ import SwiftUI
 @main
 struct CommuniMateApp: App {
     @StateObject var connector = Connector()
+    @AppStorage ("onBoardingNeeded") var onBoardingNeeded: Bool = true
     var body: some Scene {
         WindowGroup {
-            Main().environmentObject(connector)
+            if(onBoardingNeeded) {
+                Onboarding1()
+                
+            }
+            else {
+                Main().environmentObject(connector)
+            }
+            
         }
     }
 }

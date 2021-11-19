@@ -11,7 +11,7 @@ struct Settings: View {
     var body: some View {
         VStack {
             List{
-                NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
+                NavigationLink(destination: Text("profile")) {
                     Image("peacock")
                         .resizable()
                         .frame(width: 80, height: 80)
@@ -32,13 +32,13 @@ struct Settings: View {
                     }
                     
                 }
-                NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
+                NavigationLink(destination: Text("Help")) {
                     Text("Help")
                         .font(.body)
                         .fontWeight(.regular)
                         .foregroundColor(Color.black)
                 }
-                NavigationLink(destination: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Destination@*/Text("Destination")/*@END_MENU_TOKEN@*/) {
+                NavigationLink(destination: Text("Credits")) {
                     Text("Credits")
                 }
             }

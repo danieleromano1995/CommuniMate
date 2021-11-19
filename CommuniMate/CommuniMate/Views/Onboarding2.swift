@@ -66,18 +66,18 @@ struct Onboarding2: View {
                     }
                 }
             }
-            Button(action: {}) {
+            NavigationLink(destination: Onboarding3()){
                 Text("Continue")
                     .font(.callout)
                     .fontWeight(.bold)
                     .padding()
-            }
             .frame(maxWidth: .infinity, alignment: .center)
             .foregroundColor(.white)
             .background(Color.accentColor)
             .cornerRadius(10.0)
             .padding(.top, 100)
             .padding(.horizontal, 65)
+            }
         }
     }
 }
