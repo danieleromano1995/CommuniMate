@@ -53,6 +53,7 @@
       "size" : "20x20"
     },
     {
+      "filename" : "iPad_Notifications_20_2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
@@ -64,6 +65,7 @@
       "size" : "29x29"
     },
     {
+      "filename" : "iPad_Settings_29_2x-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
@@ -99,6 +101,7 @@
       "size" : "83.5x83.5"
     },
     {
+      "filename" : "appstore.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
