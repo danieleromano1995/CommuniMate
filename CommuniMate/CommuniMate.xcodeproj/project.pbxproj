@@ -20,6 +20,7 @@
 		BC4139562746AAA600A19C65 /* Onboarding2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4139552746AAA600A19C65 /* Onboarding2.swift */; };
 		BC4139582746AB3B00A19C65 /* Onboarding3.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4139572746AB3B00A19C65 /* Onboarding3.swift */; };
 		BC41395A2746AC3100A19C65 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4139592746AC3100A19C65 /* Settings.swift */; };
+		BCBCA8342747FBCD00C0D41C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCBCA8332747FBCD00C0D41C /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		BC4139552746AAA600A19C65 /* Onboarding2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding2.swift; sourceTree = "<group>"; };
 		BC4139572746AB3B00A19C65 /* Onboarding3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding3.swift; sourceTree = "<group>"; };
 		BC4139592746AC3100A19C65 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		BCBCA8332747FBCD00C0D41C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 		37B235EA27469C5E00BDABCC /* CommuniMate */ = {
 			isa = PBXGroup;
 			children = (
+				BCBCA8332747FBCD00C0D41C /* LaunchScreen.storyboard */,
 				37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */,
 				37B235FA27469C8700BDABCC /* Model */,
 				37B235F927469C7E00BDABCC /* Views */,
@@ -168,6 +171,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCBCA8342747FBCD00C0D41C /* LaunchScreen.storyboard in Resources */,
 				37B235F327469C6000BDABCC /* Preview Assets.xcassets in Resources */,
 				37B235F027469C6000BDABCC /* Assets.xcassets in Resources */,
 			);
