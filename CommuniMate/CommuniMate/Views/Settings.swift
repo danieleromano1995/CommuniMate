@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Settings: View {
     var body: some View {
+        NavigationView{
         VStack {
             List{
                 NavigationLink(destination: Text("profile")) {
@@ -42,6 +43,7 @@ struct Settings: View {
                     Text("Credits")
                 }
             }
+        }
         }.navigationTitle("Settings")
     }
 }

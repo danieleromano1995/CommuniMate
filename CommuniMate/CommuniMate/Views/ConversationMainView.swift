@@ -32,6 +32,9 @@ struct ConversationsMainView: View {
                         VStack{
                             Image("cerchietto")
                             Text("\(invitee)")
+                                .font(.footnote)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.black)
                         }
                     }.position(x: CGFloat.random(in: 50..<350), y: CGFloat.random(in: (100..<500)) )
                 }

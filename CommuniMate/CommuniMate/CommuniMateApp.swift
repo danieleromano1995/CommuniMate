@@ -14,13 +14,13 @@ struct CommuniMateApp: App {
     var body: some Scene {
         WindowGroup {
             if(onBoardingNeeded) {
-                Onboarding1()
+                Onboarding1().environmentObject(connector)
                 
             }
             else {
                 Main().environmentObject(connector)
+                
             }
-            
         }
     }
 }

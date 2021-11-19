@@ -40,7 +40,8 @@ class Connector : NSObject, ObservableObject{
     @Published var invitee : [String] = []
     @Published var sessionAccepted : MCSession?
     @Published var isStarting : Bool = false
-    
+    @Published var chosenCategories : [Int] = []
+    @Published var readyCounter : Int = 0
     override init() {
            session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
            serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: serviceType)
@@ -68,7 +69,7 @@ class Connector : NSObject, ObservableObject{
     }
     
     func askForInvite(peer: MCPeerID){
-        serviceBrowser.invitePeer(peer, to: session, withContext: nil, timeout: 100)
+        serviceBrowser.invitePeer(peer, to: session, withContext: nil, timeout: 300)
     }
     func startAdvertising(){
         serviceAdvertiser.startAdvertisingPeer()
@@ -104,6 +105,31 @@ class Connector : NSObject, ObservableObject{
         }
     }
     
+    func sendCategories(Categories : [Int]){
+        let message = Message(kind: .categories)
+        message.categories = Categories
+        if !session.connectedPeers.isEmpty{
+            do {
+                let data = try JSONEncoder().encode(message)
+                try session.send(data, toPeers: session.connectedPeers, with: .reliable)
+            } catch {
+                print("Error for sending: \(String(describing: error))")
+            }
+        }
+    }
+    
+    func sendDone(){
+        let message = Message(kind: .done)
+        self.readyCounter += 1
+        if !session.connectedPeers.isEmpty{
+            do {
+                let data = try JSONEncoder().encode(message)
+                try session.send(data, toPeers: session.connectedPeers, with: .reliable)
+            } catch {
+                print("Error for sending: \(String(describing: error))")
+            }
+        }
+    }
    }
 extension Connector : MCNearbyServiceAdvertiserDelegate{
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
@@ -157,8 +183,10 @@ extension Connector: MCSessionDelegate {
                        self.isStarting = true
                    case .categories:
                        print("Categories")
+                       self.chosenCategories.append(contentsOf: message.categories)
                    case .done:
                        print("Done")
+                       self.readyCounter += 1
                    }
         }
         

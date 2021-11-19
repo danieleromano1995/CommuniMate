@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct Onboarding3: View {
-    @AppStorage ("onBoardingNeeded") var onBoardingNeeded: Bool = false
+    @AppStorage ("onBoardingNeeded") var onBoardingNeeded: Bool = true
     @AppStorage("name") var name : String = ""
     @AppStorage("surname") var surname : String = ""
     @AppStorage("pronouns") var pronouns : String = ""
+    @State var goMain = false
     let pronounsChoice = ["She/Her", "He/Him","They/Them"]
     var body: some View {
         ZStack{
@@ -40,7 +41,26 @@ struct Onboarding3: View {
                     }
                     }.pickerStyle(.inline)
                 }
-                
+                Button{
+                    goMain = true
+                    onBoardingNeeded = false
+                }label: {
+                    Text("Continue")
+                        .font(.callout)
+                        .fontWeight(.bold)
+                        .padding()
+                .frame(maxWidth: .infinity, alignment: .center)
+                .foregroundColor(.white)
+                .background(Color.accentColor)
+                .cornerRadius(10.0)
+                .padding(.horizontal, 65)
+                .padding(.bottom, 50)
+                }
+                NavigationLink(destination: Main().navigationTitle("").navigationBarHidden(true)
+                                .navigationBarBackButtonHidden(true), isActive: $goMain){
+                    EmptyView()
+                }
+               
             }
         }
     }

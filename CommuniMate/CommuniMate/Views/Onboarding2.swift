@@ -66,7 +66,7 @@ struct Onboarding2: View {
                     }
                 }
             }
-            NavigationLink(destination: Onboarding3()){
+            NavigationLink(destination: Onboarding3().navigationTitle("").navigationBarHidden(true)){
                 Text("Continue")
                     .font(.callout)
                     .fontWeight(.bold)

@@ -7,7 +7,8 @@
 import SwiftUI
 
 struct Categories: View {
-    
+    @EnvironmentObject var connector : Connector
+    @State var categoriesSelection : [Int] = []
     @State private var category_selected = false
     var category_images = [Image("pets"),
                            Image("business"),
@@ -30,12 +31,21 @@ struct Categories: View {
                     ForEach (0..<category_images.count, id: \.self) {i in
                         Button (action: {
                             category_selected = category_selected ? false : true
+                            if category_selected{
+                                categoriesSelection.append(i)
+                            } else{
+                                if categoriesSelection.contains(i){
+                                   let removable =  categoriesSelection.firstIndex(of: i)
+                                    categoriesSelection.remove(at: removable!)
+                                }
+                            }
                         }, label: {
                             ZStack {
                                 category_images[i]
                                 if category_selected {
                                     Image("mask2").opacity(0.6)
                                     //Image("mask") //brighter maybe too much
+                                    
                                 }
                             }
                         })
@@ -44,6 +54,20 @@ struct Categories: View {
                     }
                 }
             }.navigationTitle("Choose your categories")
+            .toolbar {
+                ToolbarItem{
+                    Button("Done"){
+                        connector.sendCategories(Categories: categoriesSelection)
+                        connector.sendDone()
+                        repeat{
+                            if(connector.readyCounter == connector.connectedPeers.count){
+                                
+                            }
+                        }while(connector.readyCounter == connector.connectedPeers.count)
+                        
+                    }
+                }
+            }
         
     }
 }
