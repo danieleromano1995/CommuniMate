@@ -13,6 +13,8 @@ enum Kind : Codable{
     case done
     case start
     case categories
+    case talker
+    case guest
 }
 
 class Message : Encodable, Decodable{
@@ -42,6 +44,9 @@ class Connector : NSObject, ObservableObject{
     @Published var isStarting : Bool = false
     @Published var chosenCategories : [Int] = []
     @Published var readyCounter : Int = 0
+    @Published var turnList : [MCPeerID] = []
+    @Published var isTalker : Bool = false
+    
     override init() {
            session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
            serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: serviceType)
@@ -118,6 +123,30 @@ class Connector : NSObject, ObservableObject{
         }
     }
     
+    func sendTalker(to peer: MCPeerID){
+        let message = Message(kind: .talker)
+        if !session.connectedPeers.isEmpty{
+            do {
+                let data = try JSONEncoder().encode(message)
+                try session.send(data, toPeers: [peer], with: .reliable)
+            } catch {
+                print("Error for sending: \(String(describing: error))")
+            }
+        }
+    }
+    
+    func sendListener(to peers: [MCPeerID]){
+        let message = Message(kind: .talker)
+        if !session.connectedPeers.isEmpty{
+            do {
+                let data = try JSONEncoder().encode(message)
+                try session.send(data, toPeers: peers, with: .reliable)
+            } catch {
+                print("Error for sending: \(String(describing: error))")
+            }
+        }
+    }
+    
     func sendDone(){
         let message = Message(kind: .done)
         self.readyCounter += 1
@@ -187,6 +216,12 @@ extension Connector: MCSessionDelegate {
                    case .done:
                        print("Done")
                        self.readyCounter += 1
+                   case .talker:
+                       print("Talker")
+                       self.isTalker = true
+                   case .guest:
+                       print("Guest")
+                       self.isTalker = false
                    }
         }
         

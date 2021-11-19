@@ -21,7 +21,7 @@ struct ConversationsMainView: View {
             VStack(){
                 NavigationLink(destination: Host(isHost: $isHost, isStarting:$isStarting), isActive: $isHost){ EmptyView()
                 }
-                NavigationLink(destination: Guest(isGuest: $isGuest, isStarting: $isStarting), isActive: $isGuest){ EmptyView()
+                NavigationLink(destination: Guest(isGuest: $isGuest, isStarting: $isStarting,isHost: $isHost), isActive: $isGuest){ EmptyView()
                 }
 
                 ForEach(connector.invitee, id: \.self){ invitee in

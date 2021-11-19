@@ -10,6 +10,7 @@ struct Categories: View {
     @EnvironmentObject var connector : Connector
     @State var categoriesSelection : [Int] = []
     @State private var category_selected = false
+    @Binding var isHost : Bool
     var category_images = [Image("pets"),
                            Image("business"),
                            Image("healthcare"),
@@ -61,7 +62,13 @@ struct Categories: View {
                         connector.sendDone()
                         repeat{
                             if(connector.readyCounter == connector.connectedPeers.count){
-                                
+                                connector.turnList = connector.connectedPeers
+                                if(isHost){
+                                    let talker = connector.turnList[Int.random(in: 0..<connector.turnList.count)]
+                                    connector.sendTalker(to: talker)
+                                    connector.turnList.remove(at: connector.turnList.firstIndex(of: talker)!)
+                                    connector.sendListener(to: connector.turnList)
+                                }
                             }
                         }while(connector.readyCounter == connector.connectedPeers.count)
                         
@@ -72,8 +79,4 @@ struct Categories: View {
     }
 }
 
-struct CategoriesView_Previews: PreviewProvider {
-    static var previews: some View {
-        Categories()
-    }
-}
+

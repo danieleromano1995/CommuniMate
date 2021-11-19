@@ -11,9 +11,9 @@ struct Guest: View {
     @EnvironmentObject var connector : Connector
     @Binding var isGuest : Bool
     @Binding var isStarting : Bool
-    
+    @Binding var isHost : Bool
     var body: some View {
-        NavigationLink(destination: Categories().navigationBarBackButtonHidden(true), isActive: $connector.isStarting){
+        NavigationLink(destination: Categories(isHost: $isHost).navigationBarBackButtonHidden(true), isActive: $connector.isStarting){
             EmptyView()
         }
         List{
