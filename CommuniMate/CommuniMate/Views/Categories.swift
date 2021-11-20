@@ -8,9 +8,11 @@ import SwiftUI
 
 struct Categories: View {
     @EnvironmentObject var connector : Connector
-    @State var categoriesSelection : [Int] = []
+    @State var categoriesSelection : [String] = []
     @State private var category_selected = false
+    @State var ready = false
     @Binding var isHost : Bool
+    let categories = CategoriesLibrary()
     var category_images = [Image("pets"),
                            Image("business"),
                            Image("healthcare"),
@@ -26,17 +28,21 @@ struct Categories: View {
     let columns : [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
-   
+        ZStack{
+            NavigationLink(destination: Loading(isHost: $isHost), isActive: $ready){
+                EmptyView()
+            }
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 10) {
                     ForEach (0..<category_images.count, id: \.self) {i in
                         Button (action: {
                             category_selected = category_selected ? false : true
+                            let category = categories.keys
                             if category_selected{
-                                categoriesSelection.append(i)
-                            } else{
-                                if categoriesSelection.contains(i){
-                                   let removable =  categoriesSelection.firstIndex(of: i)
+                                categoriesSelection.append(category[i])
+                            }else{
+                                if categoriesSelection.contains(category[i]){
+                                   let removable =  categoriesSelection.firstIndex(of: category[i])
                                     categoriesSelection.remove(at: removable!)
                                 }
                             }
@@ -48,6 +54,7 @@ struct Categories: View {
                                     //Image("mask") //brighter maybe too much
                                     
                                 }
+                               
                             }
                         })
                     
@@ -58,25 +65,15 @@ struct Categories: View {
             .toolbar {
                 ToolbarItem{
                     Button("Done"){
+                        print(categoriesSelection)
                         connector.sendCategories(Categories: categoriesSelection)
                         connector.sendDone()
-                        repeat{
-                            if(connector.readyCounter == connector.connectedPeers.count){
-                                connector.turnList = connector.connectedPeers
-                                if(isHost){
-                                    let talker = connector.turnList[Int.random(in: 0..<connector.turnList.count)]
-                                    connector.sendTalker(to: talker)
-                                    connector.turnList.remove(at: connector.turnList.firstIndex(of: talker)!)
-                                    connector.sendListener(to: connector.turnList)
-                                }
-                            }
-                        }while(connector.readyCounter == connector.connectedPeers.count)
-                        
-                    }
+                        connector.readyCounter += 1
+                        ready = true
                 }
             }
-        
+    }
     }
 }
 
-
+}

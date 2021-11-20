@@ -51,6 +51,7 @@ struct ConversationsMainView: View {
             }
         }.navigationBarHidden(true)
             .navigationTitle("")
+            .navigationViewStyle(.stack)
             
     }
 }

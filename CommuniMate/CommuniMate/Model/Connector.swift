@@ -15,12 +15,14 @@ enum Kind : Codable{
     case categories
     case talker
     case guest
+    case list
 }
 
 class Message : Encodable, Decodable{
     var body = ""
     let kind : Kind
-    var categories : [Int] = []
+    var categories : [String] = []
+    var list : [String] = []
     
     init(kind: Kind){
         self.kind = kind
@@ -30,7 +32,7 @@ class Message : Encodable, Decodable{
 
 class Connector : NSObject, ObservableObject{
     private let serviceType = "prova-mc2"
-    private let myPeerId = MCPeerID(displayName: UIDevice.current.name)
+    let myPeerId = MCPeerID(displayName: UIDevice.current.name)
     private let serviceAdvertiser: MCNearbyServiceAdvertiser
     private let serviceBrowser: MCNearbyServiceBrowser
     private let session: MCSession
@@ -42,10 +44,13 @@ class Connector : NSObject, ObservableObject{
     @Published var invitee : [String] = []
     @Published var sessionAccepted : MCSession?
     @Published var isStarting : Bool = false
-    @Published var chosenCategories : [Int] = []
+    @Published var chosenCategories : [String] = []
     @Published var readyCounter : Int = 0
     @Published var turnList : [MCPeerID] = []
     @Published var isTalker : Bool = false
+    @Published var isListener : Bool = false
+    @Published var allReady : Bool = false
+    @Published var talkersList : [String] = []
     
     override init() {
            session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
@@ -97,6 +102,24 @@ class Connector : NSObject, ObservableObject{
             }
         }
     }
+    func sendList(to talker: [MCPeerID]){
+        if (talker.contains(myPeerId)){
+            print("It's-a-me Mario")
+        }else{
+            let message = Message(kind: .list)
+            message.list = self.talkersList
+            if !session.connectedPeers.isEmpty{
+                do {
+                    let data = try JSONEncoder().encode(message)
+                    try session.send(data, toPeers: talker, with: .reliable)
+                } catch {
+                    print("Error for sending: \(String(describing: error))")
+                }
+            }
+        }
+        
+    }
+    
     
     func sendReady(){
         let message = Message(kind: .start)
@@ -110,7 +133,7 @@ class Connector : NSObject, ObservableObject{
         }
     }
     
-    func sendCategories(Categories : [Int]){
+    func sendCategories(Categories : [String]){
         let message = Message(kind: .categories)
         message.categories = Categories
         if !session.connectedPeers.isEmpty{
@@ -125,6 +148,11 @@ class Connector : NSObject, ObservableObject{
     
     func sendTalker(to peer: MCPeerID){
         let message = Message(kind: .talker)
+        if (peer == myPeerId){
+            print("UE STRUNZ \(peer == myPeerId)")
+            self.isTalker = true
+            self.isListener = false
+        }else{
         if !session.connectedPeers.isEmpty{
             do {
                 let data = try JSONEncoder().encode(message)
@@ -133,10 +161,19 @@ class Connector : NSObject, ObservableObject{
                 print("Error for sending: \(String(describing: error))")
             }
         }
+            self.isTalker = false
+            self.isListener = true
+        }
+        print(peer.displayName)
+       
     }
     
     func sendListener(to peers: [MCPeerID]){
-        let message = Message(kind: .talker)
+        let message = Message(kind: .guest)
+        if(peers.contains(myPeerId)){
+            self.isListener = true
+            self.isTalker = false
+        }else{
         if !session.connectedPeers.isEmpty{
             do {
                 let data = try JSONEncoder().encode(message)
@@ -145,11 +182,13 @@ class Connector : NSObject, ObservableObject{
                 print("Error for sending: \(String(describing: error))")
             }
         }
+            self.isListener = false
+        }
+        
     }
     
     func sendDone(){
         let message = Message(kind: .done)
-        self.readyCounter += 1
         if !session.connectedPeers.isEmpty{
             do {
                 let data = try JSONEncoder().encode(message)
@@ -216,12 +255,38 @@ extension Connector: MCSessionDelegate {
                    case .done:
                        print("Done")
                        self.readyCounter += 1
+                       Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+                           if(self.readyCounter == (self.connectedPeers.count + 1)){
+                               self.allReady = true
+                               self.turnList = self.connectedPeers
+                               self.turnList.append(self.myPeerId)
+                               print(self.turnList.map(\.displayName))
+                               print("Ready Man")
+                               timer.invalidate()
+                           }
+                       }
+
                    case .talker:
                        print("Talker")
                        self.isTalker = true
+                       self.isListener = false
                    case .guest:
-                       print("Guest")
+                       print("Listener")
+                       self.isListener = true
                        self.isTalker = false
+                   case .list:
+                       print("List")
+                       self.talkersList = message.list
+                       self.talkersList.append(self.myPeerId.displayName)
+                       for peero in self.turnList {
+                           for talkers in self.talkersList{
+                               if(peero.displayName==talkers){
+                                   let removable = self.turnList.firstIndex(of: peero)
+                                   self.turnList.remove(at: removable!)
+                               }
+                           }
+                       }
+                       print("\(self.turnList.description)")
                    }
         }
         
