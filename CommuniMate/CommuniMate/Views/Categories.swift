@@ -11,6 +11,33 @@ struct Categories: View {
     @State var categoriesSelection : [String] = []
     @State private var category_selected = false
     @State var ready = false
+    @State var selected : [Bool] = []
+    @State var opacity : [Double] = [0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0,
+                                  0
+    ]
+    @State var black : [Image] = [Image("mask2"),
+                                  Image("mask2"),
+                                  Image("mask2"),
+                                  Image("mask2"),
+                                  Image("mask2"),
+                                  Image("mask2"),
+                                  Image("mask2"),
+                                  Image("mask2"),
+                                  Image("mask2"),
+                                  Image("mask2"),
+                                  Image("mask2"),
+                                  Image("mask2")
+    ]
     @Binding var isHost : Bool
     let categories = CategoriesLibrary()
     var category_images = [Image("pets"),
@@ -31,30 +58,35 @@ struct Categories: View {
         ZStack{
             NavigationLink(destination: Loading(isHost: $isHost), isActive: $ready){
                 EmptyView()
-            }
+            }.onAppear(perform: {
+                for _ in category_images {
+                    selected.append(false)
+                }
+            })
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 10) {
                     ForEach (0..<category_images.count, id: \.self) {i in
                         Button (action: {
-                            category_selected = category_selected ? false : true
+                            selected[i] = selected[i] ? false : true
                             let category = categories.keys
-                            if category_selected{
+                            if selected[i]{
                                 categoriesSelection.append(category[i])
+                                opacity[i] = 0.8
                             }else{
                                 if categoriesSelection.contains(category[i]){
+                                    opacity[i] = 0
                                    let removable =  categoriesSelection.firstIndex(of: category[i])
                                     categoriesSelection.remove(at: removable!)
                                 }
                             }
+                            print(category_images.count)
+                            print(selected.count)
+                            print(i)
                         }, label: {
                             ZStack {
                                 category_images[i]
-                                if category_selected {
-                                    Image("mask2").opacity(0.6)
+                                black[i].opacity(opacity[i])
                                     //Image("mask") //brighter maybe too much
-                                    
-                                }
-                               
                             }
                         })
                     

@@ -12,6 +12,7 @@ struct TalkerView: View {
     @State var becameListener : Bool = false
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
    @State var timeRemaining = 300
+    
     func convertTimeMinutesSeconds(timeInSeconds: Int) -> String {
         let minutes = timeInSeconds / 60
         let seconds = timeInSeconds % 60
@@ -37,9 +38,6 @@ struct TalkerView: View {
                         timeRemaining -= 1
                     }
                 CardView(becameListener: $becameListener)
-//                Text("Is talker: \(connector.isTalker.description)")
-//                Text("Became Listener: \(becameListener.description)")
-//                Text("List: \(connector.talkersList.description)")
 
 
                 HStack(){

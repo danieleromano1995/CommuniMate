@@ -10,6 +10,9 @@ import SwiftUI
 struct ListenerView: View {
     @EnvironmentObject var connector : Connector
     @State var becameTalker : Bool = false
+    @AppStorage("name") var name : String = ""
+    @AppStorage("surname") var surname : String = ""
+    @AppStorage("pronouns") var pronouns : String = ""
     var body: some View {
         ZStack{
             NavigationLink(destination: TalkerView(),isActive: $becameTalker){
@@ -20,11 +23,11 @@ struct ListenerView: View {
                 Circle().fill(/*@START_MENU_TOKEN@*/Color.white/*@END_MENU_TOKEN@*/)
                     .frame(width: 100.0, height: 100.0)
                 VStack{
-                    HStack{
-                        Text("Plum")
+                    HStack(spacing: 0){
+                        Text("\(connector.currentTalker!.name) ")
                             .font(.title2)
                             .fontWeight(.bold)
-                        Text("(he\\him)")
+                        Text("(\(connector.currentTalker!.pronouns))")
                             .font(.title2)
                     }
                     Text("is speaking!")
@@ -33,15 +36,14 @@ struct ListenerView: View {
                 }.onAppear(perform: {
                     Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
                     if(connector.isTalker){
+
                         becameTalker.toggle()
                         timer.invalidate()
                     }
                     }
                     
                 })
-//                Text("Is listener: \(connector.isListener.description)")
-//                Text("Became talker: \(becameTalker.description)")
-//                Text("List: \(connector.talkersList.description)")
+
                 HStack{
                     VStack(spacing: 20){
                         Image(systemName: "lightbulb")

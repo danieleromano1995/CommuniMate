@@ -16,6 +16,13 @@ enum Kind : Codable{
     case talker
     case guest
     case list
+    case profile
+}
+
+struct Profile : Codable{
+    let name : String
+    let surname : String
+    let pronouns : String
 }
 
 class Message : Encodable, Decodable{
@@ -23,6 +30,7 @@ class Message : Encodable, Decodable{
     let kind : Kind
     var categories : [String] = []
     var list : [String] = []
+    var profile : Profile? = nil
     
     init(kind: Kind){
         self.kind = kind
@@ -31,6 +39,9 @@ class Message : Encodable, Decodable{
 }
 
 class Connector : NSObject, ObservableObject{
+    @AppStorage("name") var name : String = ""
+    @AppStorage("surname") var surname : String = ""
+    @AppStorage("pronouns") var pronouns : String = ""
     private let serviceType = "prova-mc2"
     let myPeerId = MCPeerID(displayName: UIDevice.current.name)
     private let serviceAdvertiser: MCNearbyServiceAdvertiser
@@ -51,6 +62,7 @@ class Connector : NSObject, ObservableObject{
     @Published var isListener : Bool = false
     @Published var allReady : Bool = false
     @Published var talkersList : [String] = []
+    @Published var currentTalker : Profile? = Profile(name: "", surname: "", pronouns: "")
     
     override init() {
            session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
@@ -93,6 +105,19 @@ class Connector : NSObject, ObservableObject{
      print("sendMessage: \(message.body) to \(self.session.connectedPeers.count) peers")
         
 
+        if !session.connectedPeers.isEmpty {
+            do {
+                let data = try JSONEncoder().encode(message)
+                try session.send(data, toPeers: session.connectedPeers, with: .reliable)
+            } catch {
+                print("Error for sending: \(String(describing: error))")
+            }
+        }
+    }
+    
+    func send(profile: Profile){
+        let message = Message(kind: .profile)
+        message.profile = profile
         if !session.connectedPeers.isEmpty {
             do {
                 let data = try JSONEncoder().encode(message)
@@ -149,7 +174,6 @@ class Connector : NSObject, ObservableObject{
     func sendTalker(to peer: MCPeerID){
         let message = Message(kind: .talker)
         if (peer == myPeerId){
-            print("UE STRUNZ \(peer == myPeerId)")
             self.isTalker = true
             self.isListener = false
         }else{
@@ -268,6 +292,7 @@ extension Connector: MCSessionDelegate {
 
                    case .talker:
                        print("Talker")
+                       self.send(profile: Profile(name: self.name, surname: self.surname, pronouns: self.pronouns))
                        self.isTalker = true
                        self.isListener = false
                    case .guest:
@@ -278,15 +303,20 @@ extension Connector: MCSessionDelegate {
                        print("List")
                        self.talkersList = message.list
                        self.talkersList.append(self.myPeerId.displayName)
+                       print(self.turnList.description)
+                       print(self.talkersList.description)
                        for peero in self.turnList {
                            for talkers in self.talkersList{
                                if(peero.displayName==talkers){
+                                   print("\(peero.displayName) ==  \(talkers)")
                                    let removable = self.turnList.firstIndex(of: peero)
                                    self.turnList.remove(at: removable!)
                                }
                            }
                        }
                        print("\(self.turnList.description)")
+                   case .profile:
+                       self.currentTalker = message.profile
                    }
         }
         
