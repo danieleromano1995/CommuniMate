@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct Settings: View {
+    @AppStorage("name") var name : String = ""
+    @AppStorage("pronouns") var pronouns : String = ""
+    @AppStorage("profile") var profile : Data = Data()
     var body: some View {
         NavigationView{
         VStack {
             List{
                 NavigationLink(destination: Text("profile")) {
-                    Image("peacock")
+                    Image(uiImage: (UIImage(data: profile) ?? UIImage(systemName: "person.fill"))!)
                         .resizable()
                         .frame(width: 80, height: 80)
+                        .clipShape(Circle())
                         .padding()
                     VStack(alignment:.leading){
-                        Text("Peacock")
+                        Text("\(name)")
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(Color.black)
@@ -43,7 +47,7 @@ struct Settings: View {
                     Text("Credits")
                 }
             }
-        }
+        }.navigationTitle("Settings")
         }.navigationTitle("Settings")
     }
 }

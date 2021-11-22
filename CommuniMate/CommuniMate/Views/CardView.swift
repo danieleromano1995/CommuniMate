@@ -25,6 +25,7 @@ struct CardView: View {
                 Text("\(name)")
                     .font(.body)
                     .fontWeight(.bold)
+                    .padding(.top,5)
                 Text("\(question)").minimumScaleFactor(0.5)
                 Divider()
                 Button{
@@ -42,6 +43,7 @@ struct CardView: View {
                     Text("Pass the floor")
                         .font(.body)
                         .fontWeight(.bold)
+                        .padding(.bottom,5)
                 }
             }.onAppear(perform: {
                 let chosenCategories = connector.chosenCategories
@@ -53,7 +55,7 @@ struct CardView: View {
             })
             
         }
-        .frame(width: 270.0, height: 137.0)
+        .frame(width: 270.0, height: 160.0)
     }
 }
 

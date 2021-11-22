@@ -12,6 +12,7 @@
 		373842E02747FF2400EBF1B0 /* ListenerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373842DF2747FF2400EBF1B0 /* ListenerView.swift */; };
 		373842E227480B3100EBF1B0 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373842E127480B3100EBF1B0 /* Loading.swift */; };
 		373842E427485CCB00EBF1B0 /* CategoriesLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373842E327485CCB00EBF1B0 /* CategoriesLibrary.swift */; };
+		37985F95274BC87F0097A277 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37985F94274BC87F0097A277 /* ImagePicker.swift */; };
 		37B235EC27469C5E00BDABCC /* CommuniMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */; };
 		37B235F027469C6000BDABCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B235EF27469C6000BDABCC /* Assets.xcassets */; };
 		37B235F327469C6000BDABCC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B235F227469C6000BDABCC /* Preview Assets.xcassets */; };
@@ -34,6 +35,8 @@
 		373842DF2747FF2400EBF1B0 /* ListenerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenerView.swift; sourceTree = "<group>"; };
 		373842E127480B3100EBF1B0 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		373842E327485CCB00EBF1B0 /* CategoriesLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesLibrary.swift; sourceTree = "<group>"; };
+		37985F94274BC87F0097A277 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		37985F98274BF2570097A277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		37B235E827469C5E00BDABCC /* CommuniMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommuniMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuniMateApp.swift; sourceTree = "<group>"; };
 		37B235EF27469C6000BDABCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 		37B235EA27469C5E00BDABCC /* CommuniMate */ = {
 			isa = PBXGroup;
 			children = (
+				37985F98274BF2570097A277 /* Info.plist */,
 				BCBCA8332747FBCD00C0D41C /* LaunchScreen.storyboard */,
 				37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */,
 				37B235FA27469C8700BDABCC /* Model */,
@@ -124,6 +128,7 @@
 			children = (
 				37B235FB27469CD400BDABCC /* Connector.swift */,
 				373842E327485CCB00EBF1B0 /* CategoriesLibrary.swift */,
+				37985F94274BC87F0097A277 /* ImagePicker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 				BC4139582746AB3B00A19C65 /* Onboarding3.swift in Sources */,
 				BC4139542746AA2300A19C65 /* Onboarding1.swift in Sources */,
 				BC4139562746AAA600A19C65 /* Onboarding2.swift in Sources */,
+				37985F95274BC87F0097A277 /* ImagePicker.swift in Sources */,
 				37B2360027469E1300BDABCC /* ConversationMainView.swift in Sources */,
 				BC41395A2746AC3100A19C65 /* Settings.swift in Sources */,
 				37B2360227469E9900BDABCC /* Host.swift in Sources */,
@@ -272,6 +278,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -327,6 +334,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -348,6 +356,8 @@
 				DEVELOPMENT_TEAM = B35ALGTZKD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CommuniMate/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "CommuniMate needs to use your phone’s data to discover devices nearby";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -378,6 +388,8 @@
 				DEVELOPMENT_TEAM = B35ALGTZKD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CommuniMate/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "CommuniMate needs to use your phone’s data to discover devices nearby";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

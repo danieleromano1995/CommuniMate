@@ -10,21 +10,19 @@ import SwiftUI
 struct ListenerView: View {
     @EnvironmentObject var connector : Connector
     @State var becameTalker : Bool = false
-    @AppStorage("name") var name : String = ""
-    @AppStorage("surname") var surname : String = ""
-    @AppStorage("pronouns") var pronouns : String = ""
     var body: some View {
         ZStack{
-            NavigationLink(destination: TalkerView(),isActive: $becameTalker){
+            NavigationLink(destination: TalkerView().navigationBarBackButtonHidden(true),isActive: $becameTalker){
                 EmptyView()
             }
             Color("bg").edgesIgnoringSafeArea(.all)
             VStack(spacing: 50){
-                Circle().fill(/*@START_MENU_TOKEN@*/Color.white/*@END_MENU_TOKEN@*/)
-                    .frame(width: 100.0, height: 100.0)
+                Image(uiImage: (UIImage(data: connector.currentTalker!.profile) ?? UIImage(systemName: "person.fill"))!)
+                    .frame(width: 100.0, height: 100.0).clipShape(Circle())                    .aspectRatio(contentMode: .fill)
+
                 VStack{
                     HStack(spacing: 0){
-                        Text("\(connector.currentTalker!.name) ")
+                        Text("\(connector.currentTalker!.name)")
                             .font(.title2)
                             .fontWeight(.bold)
                         Text("(\(connector.currentTalker!.pronouns))")

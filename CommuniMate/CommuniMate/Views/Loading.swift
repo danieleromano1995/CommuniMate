@@ -13,14 +13,15 @@ struct Loading: View {
     @State var isListener : Bool = false
     @State var isTalker : Bool = false
     @AppStorage("name") var name : String = ""
-    @AppStorage("surname") var surname : String = ""
     @AppStorage("pronouns") var pronouns : String = ""
+    @AppStorage("profile") var profile : Data = Data()
+
     var body: some View {
         ZStack{
-            NavigationLink(destination: TalkerView(), isActive: $isTalker){
+            NavigationLink(destination: TalkerView().navigationBarBackButtonHidden(true), isActive: $isTalker){
                 EmptyView()
             }
-            NavigationLink(destination: ListenerView(), isActive: $isListener){
+            NavigationLink(destination: ListenerView().navigationBarBackButtonHidden(true), isActive: $isListener){
                 EmptyView()
             }
 
@@ -40,7 +41,7 @@ struct Loading: View {
                                 let talker = connector.turnList[Int.random(in: 0..<connector.turnList.count)]
                                 if (talker == connector.myPeerId){
                                     connector.talkersList.append(talker.displayName)
-                                    connector.send(profile: Profile(name: self.name, surname: self.surname, pronouns: self.pronouns))
+                                    connector.send(profile: Profile(name: self.name, pronouns: self.pronouns, profile: self.profile))
                                 }
                                 print("TALKER: \(talker.displayName)")
                                 connector.sendTalker(to: talker)

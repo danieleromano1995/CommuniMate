@@ -71,7 +71,7 @@ struct Categories: View {
                             let category = categories.keys
                             if selected[i]{
                                 categoriesSelection.append(category[i])
-                                opacity[i] = 0.8
+                                opacity[i] = 0.8 
                             }else{
                                 if categoriesSelection.contains(category[i]){
                                     opacity[i] = 0

@@ -26,7 +26,7 @@ struct TalkerView: View {
     var body: some View {
         ZStack{
             Color("bg").edgesIgnoringSafeArea(.all)
-            NavigationLink(destination: ListenerView(), isActive: $becameListener){
+            NavigationLink(destination: ListenerView().navigationBarBackButtonHidden(true), isActive: $becameListener){
                 EmptyView()
             }
             VStack(spacing: 50){

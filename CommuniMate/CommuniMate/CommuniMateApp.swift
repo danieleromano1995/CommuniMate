@@ -13,14 +13,11 @@ struct CommuniMateApp: App {
     @AppStorage ("onBoardingNeeded") var onBoardingNeeded: Bool = true
     var body: some Scene {
         WindowGroup {
-            if(onBoardingNeeded) {
-                Onboarding1().environmentObject(connector)
-                
+            Main().environmentObject(connector).sheet(isPresented: $onBoardingNeeded){
+                Onboarding1()
             }
-            else {
-                Main().environmentObject(connector)
                 
-            }
+            
         }
     }
 }

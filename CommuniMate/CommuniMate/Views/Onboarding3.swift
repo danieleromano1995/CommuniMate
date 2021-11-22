@@ -10,9 +10,11 @@ import SwiftUI
 struct Onboarding3: View {
     @AppStorage ("onBoardingNeeded") var onBoardingNeeded: Bool = true
     @AppStorage("name") var name : String = ""
-    @AppStorage("surname") var surname : String = ""
     @AppStorage("pronouns") var pronouns : String = ""
-    @State var goMain = false
+    @AppStorage("profile") var profile : Data = Data()
+    @State private var image = UIImage()
+    
+    @State private var showSheet = false
     let pronounsChoice = ["She/Her", "He/Him","They/Them"]
     var body: some View {
         ZStack{
@@ -26,41 +28,51 @@ struct Onboarding3: View {
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.horizontal, 35)
-                
+                Image(uiImage: self.image)
+                    .resizable()
+                    .cornerRadius(50)
+                    .padding(.all, 3)
+                    .frame(width: 100, height: 100)
+                    .background(Color.black.opacity(0.2))
+                    .aspectRatio(contentMode: .fill)
+                    .clipShape(Circle())
+                    .onTapGesture {
+                        showSheet = true
+                    }
                 List{
+                    
                     Section{
-                    TextField("Name", text: $name)
-                        TextField("Surname", text: $surname)
+                        
+                        TextField("Name", text: $name)
                         
                     }header: {
                         Text("Profile")
                     }
                     Picker("Pronouns", selection: $pronouns) {
-                    ForEach(pronounsChoice, id: \.self) {
-                        Text($0)
-                    }
+                        ForEach(pronounsChoice, id: \.self) {
+                            Text($0)
+                        }
                     }.pickerStyle(.inline)
                 }
                 Button{
-                    goMain = true
+                    let data = image.jpegData(compressionQuality: 1.0)
+                    profile = data!
                     onBoardingNeeded = false
                 }label: {
                     Text("Continue")
                         .font(.callout)
                         .fontWeight(.bold)
                         .padding()
-                .frame(maxWidth: .infinity, alignment: .center)
-                .foregroundColor(.white)
-                .background(Color.accentColor)
-                .cornerRadius(10.0)
-                .padding(.horizontal, 65)
-                .padding(.bottom, 50)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .foregroundColor(.white)
+                        .background(Color.accentColor)
+                        .cornerRadius(10.0)
+                        .padding(.horizontal, 65)
+                        .padding(.bottom, 50)
                 }
-                NavigationLink(destination: Main().navigationTitle("").navigationBarHidden(true)
-                                .navigationBarBackButtonHidden(true), isActive: $goMain){
-                    EmptyView()
-                }
-               
+                
+            }.sheet(isPresented: $showSheet) {
+                ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
             }
         }
     }
@@ -68,6 +80,6 @@ struct Onboarding3: View {
 
 struct Onboarding3_Previews: PreviewProvider {
     static var previews: some View {
-        Onboarding3(name: "", surname: "", pronouns: "")
+        Onboarding3(name: "", pronouns: "")
     }
 }

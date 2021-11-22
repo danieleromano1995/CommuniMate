@@ -21,8 +21,8 @@ enum Kind : Codable{
 
 struct Profile : Codable{
     let name : String
-    let surname : String
     let pronouns : String
+    let profile : Data
 }
 
 class Message : Encodable, Decodable{
@@ -40,9 +40,9 @@ class Message : Encodable, Decodable{
 
 class Connector : NSObject, ObservableObject{
     @AppStorage("name") var name : String = ""
-    @AppStorage("surname") var surname : String = ""
+    @AppStorage("profile") var profile : Data = Data()
     @AppStorage("pronouns") var pronouns : String = ""
-    private let serviceType = "prova-mc2"
+    private let serviceType = "communimate"
     let myPeerId = MCPeerID(displayName: UIDevice.current.name)
     private let serviceAdvertiser: MCNearbyServiceAdvertiser
     private let serviceBrowser: MCNearbyServiceBrowser
@@ -62,7 +62,7 @@ class Connector : NSObject, ObservableObject{
     @Published var isListener : Bool = false
     @Published var allReady : Bool = false
     @Published var talkersList : [String] = []
-    @Published var currentTalker : Profile? = Profile(name: "", surname: "", pronouns: "")
+    @Published var currentTalker : Profile? = Profile(name: "", pronouns: "",profile: Data())
     
     override init() {
            session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
@@ -292,7 +292,7 @@ extension Connector: MCSessionDelegate {
 
                    case .talker:
                        print("Talker")
-                       self.send(profile: Profile(name: self.name, surname: self.surname, pronouns: self.pronouns))
+                       self.send(profile: Profile(name: self.name, pronouns: self.pronouns, profile: self.profile))
                        self.isTalker = true
                        self.isListener = false
                    case .guest:
