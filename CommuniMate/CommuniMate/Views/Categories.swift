@@ -23,7 +23,7 @@ struct Categories: View {
                                   0,
                                   0,
                                   0,
-                                  0
+                                  0,0,0
     ]
     @State var black : [Image] = [Image("mask2"),
                                   Image("mask2"),
@@ -36,7 +36,7 @@ struct Categories: View {
                                   Image("mask2"),
                                   Image("mask2"),
                                   Image("mask2"),
-                                  Image("mask2")
+                                  Image("mask2"),Image("mask2"),Image("mask2")
     ]
     @Binding var isHost : Bool
     let categories = CategoriesLibrary()
@@ -51,12 +51,12 @@ struct Categories: View {
                            Image("sport"),
                            Image("food"),
                            Image("tech"),
-                           Image("movies_series")]
+                           Image("movies_series"),Image("fashion"),Image("visualart")]
     let columns : [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
     var body: some View {
         ZStack{
-            NavigationLink(destination: Loading(isHost: $isHost), isActive: $ready){
+            NavigationLink(destination: Loading(isHost: $isHost).navigationBarHidden(true).navigationTitle("").navigationBarBackButtonHidden(true), isActive: $ready){
                 EmptyView()
             }.onAppear(perform: {
                 for _ in category_images {
@@ -86,13 +86,13 @@ struct Categories: View {
                             ZStack {
                                 category_images[i]
                                 black[i].opacity(opacity[i])
-                                    //Image("mask") //brighter maybe too much
+                                
                             }
                         })
                     
                         
                     }
-                }
+                }.padding(.horizontal,30)
             }.navigationTitle("Choose your categories")
             .toolbar {
                 ToolbarItem{

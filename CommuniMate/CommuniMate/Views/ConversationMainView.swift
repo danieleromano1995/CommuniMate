@@ -36,7 +36,7 @@ struct ConversationsMainView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(Color.black)
                         }
-                    }.position(x: CGFloat.random(in: 50..<350), y: CGFloat.random(in: (100..<500)) )
+                    }.position(x: CGFloat.random(in: 50..<370), y: CGFloat.random(in: (200..<700)) )
                 }
             }
                 .navigationTitle("Conversations")

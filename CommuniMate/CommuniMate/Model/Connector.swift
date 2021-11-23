@@ -17,6 +17,7 @@ enum Kind : Codable{
     case guest
     case list
     case profile
+    case left
 }
 
 struct Profile : Codable{
@@ -211,6 +212,19 @@ class Connector : NSObject, ObservableObject{
         
     }
     
+    func sendLeft(){
+        let message = Message(kind: .left)
+        message.body = myPeerId.displayName
+        if !session.connectedPeers.isEmpty{
+            do {
+                let data = try JSONEncoder().encode(message)
+                try session.send(data, toPeers: session.connectedPeers, with: .reliable)
+            } catch {
+                print("Error for sending: \(String(describing: error))")
+            }
+        }
+    }
+    
     func sendDone(){
         let message = Message(kind: .done)
         if !session.connectedPeers.isEmpty{
@@ -317,6 +331,14 @@ extension Connector: MCSessionDelegate {
                        print("\(self.turnList.description)")
                    case .profile:
                        self.currentTalker = message.profile
+                   case .left:
+                       for peero in self.turnList {
+                           if(peero.displayName==message.body){
+                                   let removable = self.turnList.firstIndex(of: peero)
+                                   self.turnList.remove(at: removable!)
+                               }
+                           }
+                       
                    }
         }
         

@@ -13,6 +13,9 @@
 		373842E227480B3100EBF1B0 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373842E127480B3100EBF1B0 /* Loading.swift */; };
 		373842E427485CCB00EBF1B0 /* CategoriesLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373842E327485CCB00EBF1B0 /* CategoriesLibrary.swift */; };
 		37985F95274BC87F0097A277 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37985F94274BC87F0097A277 /* ImagePicker.swift */; };
+		37AE7FB3274D189900D9E712 /* ActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 37AE7FB2274D189900D9E712 /* ActivityIndicatorView */; };
+		37AE7FB5274D206E00D9E712 /* CommuniLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37AE7FB4274D206E00D9E712 /* CommuniLaunch.storyboard */; };
+		37AE7FB7274D49A600D9E712 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AE7FB6274D49A600D9E712 /* ProfileView.swift */; };
 		37B235EC27469C5E00BDABCC /* CommuniMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */; };
 		37B235F027469C6000BDABCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B235EF27469C6000BDABCC /* Assets.xcassets */; };
 		37B235F327469C6000BDABCC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B235F227469C6000BDABCC /* Preview Assets.xcassets */; };
@@ -26,7 +29,6 @@
 		BC4139562746AAA600A19C65 /* Onboarding2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4139552746AAA600A19C65 /* Onboarding2.swift */; };
 		BC4139582746AB3B00A19C65 /* Onboarding3.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4139572746AB3B00A19C65 /* Onboarding3.swift */; };
 		BC41395A2746AC3100A19C65 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4139592746AC3100A19C65 /* Settings.swift */; };
-		BCBCA8342747FBCD00C0D41C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCBCA8332747FBCD00C0D41C /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		373842E327485CCB00EBF1B0 /* CategoriesLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesLibrary.swift; sourceTree = "<group>"; };
 		37985F94274BC87F0097A277 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		37985F98274BF2570097A277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		37AE7FB4274D206E00D9E712 /* CommuniLaunch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommuniLaunch.storyboard; sourceTree = "<group>"; };
+		37AE7FB6274D49A600D9E712 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		37B235E827469C5E00BDABCC /* CommuniMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommuniMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommuniMateApp.swift; sourceTree = "<group>"; };
 		37B235EF27469C6000BDABCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,7 +55,6 @@
 		BC4139552746AAA600A19C65 /* Onboarding2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding2.swift; sourceTree = "<group>"; };
 		BC4139572746AB3B00A19C65 /* Onboarding3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding3.swift; sourceTree = "<group>"; };
 		BC4139592746AC3100A19C65 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		BCBCA8332747FBCD00C0D41C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37AE7FB3274D189900D9E712 /* ActivityIndicatorView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,12 +89,12 @@
 			isa = PBXGroup;
 			children = (
 				37985F98274BF2570097A277 /* Info.plist */,
-				BCBCA8332747FBCD00C0D41C /* LaunchScreen.storyboard */,
 				37B235EB27469C5E00BDABCC /* CommuniMateApp.swift */,
 				37B235FA27469C8700BDABCC /* Model */,
 				37B235F927469C7E00BDABCC /* Views */,
 				37B235EF27469C6000BDABCC /* Assets.xcassets */,
 				37B235F127469C6000BDABCC /* Preview Content */,
+				37AE7FB4274D206E00D9E712 /* CommuniLaunch.storyboard */,
 			);
 			path = CommuniMate;
 			sourceTree = "<group>";
@@ -119,6 +123,7 @@
 				373842DD2747FF0D00EBF1B0 /* TalkerView.swift */,
 				373842DF2747FF2400EBF1B0 /* ListenerView.swift */,
 				373842E127480B3100EBF1B0 /* Loading.swift */,
+				37AE7FB6274D49A600D9E712 /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -149,6 +154,9 @@
 			dependencies = (
 			);
 			name = CommuniMate;
+			packageProductDependencies = (
+				37AE7FB2274D189900D9E712 /* ActivityIndicatorView */,
+			);
 			productName = CommuniMate;
 			productReference = 37B235E827469C5E00BDABCC /* CommuniMate.app */;
 			productType = "com.apple.product-type.application";
@@ -177,6 +185,9 @@
 				Base,
 			);
 			mainGroup = 37B235DF27469C5E00BDABCC;
+			packageReferences = (
+				37AE7FB1274D189900D9E712 /* XCRemoteSwiftPackageReference "ActivityIndicatorView" */,
+			);
 			productRefGroup = 37B235E927469C5E00BDABCC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -191,7 +202,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCBCA8342747FBCD00C0D41C /* LaunchScreen.storyboard in Resources */,
+				37AE7FB5274D206E00D9E712 /* CommuniLaunch.storyboard in Resources */,
 				37B235F327469C6000BDABCC /* Preview Assets.xcassets in Resources */,
 				37B235F027469C6000BDABCC /* Assets.xcassets in Resources */,
 			);
@@ -211,6 +222,7 @@
 				37B2360027469E1300BDABCC /* ConversationMainView.swift in Sources */,
 				BC41395A2746AC3100A19C65 /* Settings.swift in Sources */,
 				37B2360227469E9900BDABCC /* Host.swift in Sources */,
+				37AE7FB7274D49A600D9E712 /* ProfileView.swift in Sources */,
 				564C75322746AE22002BF809 /* Categories.swift in Sources */,
 				373842E227480B3100EBF1B0 /* Loading.swift in Sources */,
 				37B2360427469EDC00BDABCC /* Guest.swift in Sources */,
@@ -357,11 +369,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CommuniMate/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Communimate needs to access camera to take photos";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "CommuniMate needs to use your phone’s data to discover devices nearby";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = CommuniLaunch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -389,11 +402,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CommuniMate/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Communimate needs to access camera to take photos";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "CommuniMate needs to use your phone’s data to discover devices nearby";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = CommuniLaunch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -431,6 +445,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		37AE7FB1274D189900D9E712 /* XCRemoteSwiftPackageReference "ActivityIndicatorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/ActivityIndicatorView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		37AE7FB2274D189900D9E712 /* ActivityIndicatorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37AE7FB1274D189900D9E712 /* XCRemoteSwiftPackageReference "ActivityIndicatorView" */;
+			productName = ActivityIndicatorView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 37B235E027469C5E00BDABCC /* Project object */;
 }

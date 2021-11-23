@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "LifeExperience.png",
+      "filename" : "Group 124.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Group 124@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Group 124@3x.pdf",
       "idiom" : "universal",
       "scale" : "3x"
     }

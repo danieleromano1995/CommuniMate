@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "literature_lang.png",
+      "filename" : "Group 128.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Group 128@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Group 128@3x.pdf",
       "idiom" : "universal",
       "scale" : "3x"
     }

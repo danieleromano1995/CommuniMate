@@ -12,8 +12,8 @@ struct Onboarding3: View {
     @AppStorage("name") var name : String = ""
     @AppStorage("pronouns") var pronouns : String = ""
     @AppStorage("profile") var profile : Data = Data()
-    @State private var image = UIImage()
-    
+    @State private var image = UIImage(named: "camera")
+    @State private var showingAlert = false
     @State private var showSheet = false
     let pronounsChoice = ["She/Her", "He/Him","They/Them"]
     var body: some View {
@@ -28,17 +28,22 @@ struct Onboarding3: View {
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.horizontal, 35)
-                Image(uiImage: self.image)
+                Image(uiImage: self.image!)
                     .resizable()
+                    .scaledToFill()
                     .cornerRadius(50)
-                    .padding(.all, 3)
-                    .frame(width: 100, height: 100)
-                    .background(Color.black.opacity(0.2))
-                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 120, height: 120)
+                    .overlay(Circle().stroke(lineWidth:5).foregroundColor(.accentColor))
                     .clipShape(Circle())
                     .onTapGesture {
                         showSheet = true
                     }
+                Text("Take a nice selfie!").font(.subheadline)
+                    .fontWeight(.thin)
+                    .foregroundColor(Color.gray)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.horizontal, 35)
                 List{
                     
                     Section{
@@ -55,9 +60,16 @@ struct Onboarding3: View {
                     }.pickerStyle(.inline)
                 }
                 Button{
-                    let data = image.jpegData(compressionQuality: 1.0)
-                    profile = data!
-                    onBoardingNeeded = false
+                    if(name == "" || pronouns == ""){
+                        showingAlert = true
+                    }else{
+                        if(image == UIImage(named: "camera")){
+                            image = UIImage(named: "person")
+                        }
+                        let data = image!.jpegData(compressionQuality: 1.0)
+                        profile = data!
+                        onBoardingNeeded = false
+                    }
                 }label: {
                     Text("Continue")
                         .font(.callout)
@@ -69,10 +81,12 @@ struct Onboarding3: View {
                         .cornerRadius(10.0)
                         .padding(.horizontal, 65)
                         .padding(.bottom, 50)
+                }.alert("Insert your name and\nchoose your pronouns\nto help the others\nidentify you.", isPresented: $showingAlert){
+                    Button("OK", role: .cancel) { }
                 }
                 
             }.sheet(isPresented: $showSheet) {
-                ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
+                ImagePicker(sourceType: .camera, selectedImage: self.$image)
             }
         }
     }

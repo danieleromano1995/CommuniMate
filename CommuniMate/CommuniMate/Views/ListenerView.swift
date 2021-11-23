@@ -10,16 +10,21 @@ import SwiftUI
 struct ListenerView: View {
     @EnvironmentObject var connector : Connector
     @State var becameTalker : Bool = false
+    @State private var showingAlert = false
+    @State private var returnMain = false
     var body: some View {
         ZStack{
             NavigationLink(destination: TalkerView().navigationBarBackButtonHidden(true),isActive: $becameTalker){
                 EmptyView()
             }
+            NavigationLink(destination: Main().navigationBarBackButtonHidden(true), isActive: $returnMain){
+                EmptyView()
+            }
             Color("bg").edgesIgnoringSafeArea(.all)
             VStack(spacing: 50){
-                Image(uiImage: (UIImage(data: connector.currentTalker!.profile) ?? UIImage(systemName: "person.fill"))!)
-                    .frame(width: 100.0, height: 100.0).clipShape(Circle())                    .aspectRatio(contentMode: .fill)
-
+                Image(uiImage: (UIImage(data: connector.currentTalker!.profile) ?? UIImage(systemName: "person.fill"))!).resizable()
+                    .frame(width: 100.0, height: 100.0).clipShape(Circle())                    .aspectRatio(contentMode: .fill).overlay(Circle().stroke(lineWidth: 8).foregroundColor(Color.accentColor))
+                
                 VStack{
                     HStack(spacing: 0){
                         Text("\(connector.currentTalker!.name)")
@@ -33,15 +38,14 @@ struct ListenerView: View {
                         .fontWeight(.regular)
                 }.onAppear(perform: {
                     Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
-                    if(connector.isTalker){
-
-                        becameTalker.toggle()
-                        timer.invalidate()
-                    }
+                        if(connector.isTalker){
+                            becameTalker.toggle()
+                            timer.invalidate()
+                        }
                     }
                     
                 })
-
+                
                 HStack{
                     VStack(spacing: 20){
                         Image(systemName: "lightbulb")
@@ -91,13 +95,25 @@ struct ListenerView: View {
                         }
                     }
                 }
-            }.navigationTitle("Listen Carefully")
+            }.navigationTitle("Listen Carefully").toolbar {
+                ToolbarItem{
+                    Button("Exit"){
+                        showingAlert = true
+                    }.alert("Do you really wanna leave a conversation\nbefore it's over?", isPresented: $showingAlert){
+                        Button("Leave", role: .destructive) {
+                            connector.sendLeft()
+                            returnMain = true
+                            connector.disconnect()
+                        }
+                        Button("Cancel", role: .cancel){
+                            showingAlert = false
+                        }
+                    }
+                }
+                
+            }
         }
     }
 }
 
-struct ListenerView_Previews: PreviewProvider {
-    static var previews: some View {
-        ListenerView()
-    }
-}
+

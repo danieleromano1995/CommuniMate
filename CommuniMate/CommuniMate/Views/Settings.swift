@@ -13,41 +13,51 @@ struct Settings: View {
     @AppStorage("profile") var profile : Data = Data()
     var body: some View {
         NavigationView{
-        VStack {
-            List{
-                NavigationLink(destination: Text("profile")) {
-                    Image(uiImage: (UIImage(data: profile) ?? UIImage(systemName: "person.fill"))!)
-                        .resizable()
-                        .frame(width: 80, height: 80)
-                        .clipShape(Circle())
-                        .padding()
-                    VStack(alignment:.leading){
-                        Text("\(name)")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.black)
-                            .multilineTextAlignment(.center)
-                        Text("Your profile")
-                            .font(.title2)
-                            .fontWeight(.regular)
-                            .foregroundColor(Color.black)
-                            .multilineTextAlignment(.center)
-                        //                .padding(.vertical)
-                        //                .frame(maxWidth: .infinity, alignment: .center)
+            VStack {
+                List{
+                    Section{
+                        NavigationLink(destination: ProfileView()) {
+                            Image(uiImage: ((UIImage(data: profile) ?? UIImage(named: "person"))!))
+                                .resizable()
+                                .frame(width: 80, height: 80)
+                                .clipShape(Circle())
+                                .padding()
+                                .foregroundColor(Color.white)
+                            VStack(alignment:.leading){
+                                Text("\(name)")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.black)
+                                    .multilineTextAlignment(.center)
+                                Text("Your profile")
+                                    .font(.title2)
+                                    .fontWeight(.regular)
+                                    .multilineTextAlignment(.center)
+                            }
+                            
+                        }
+                        
                     }
-                    
+                    Section{
+                        NavigationLink(destination: Text("Help")) {
+                            HStack{
+                                Image(systemName: "questionmark.circle").foregroundColor(.accentColor)
+                                Text("Help")
+                                    .font(.body)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color.black)
+                            }
+                           
+                        }
+                        NavigationLink(destination: Text("Credits")) {
+                            HStack{
+                                Image(systemName: "c.circle").foregroundColor(.accentColor)
+                                Text("Credits")
+                            }
+                        }
+                    }
                 }
-                NavigationLink(destination: Text("Help")) {
-                    Text("Help")
-                        .font(.body)
-                        .fontWeight(.regular)
-                        .foregroundColor(Color.black)
-                }
-                NavigationLink(destination: Text("Credits")) {
-                    Text("Credits")
-                }
-            }
-        }.navigationTitle("Settings")
+            }.navigationTitle("Settings")
         }.navigationTitle("Settings")
     }
 }
