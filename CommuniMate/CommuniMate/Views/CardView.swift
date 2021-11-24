@@ -26,7 +26,7 @@ struct CardView: View {
                     .font(.body)
                     .fontWeight(.bold)
                     .padding(.top,5)
-                Text("\(question)").minimumScaleFactor(0.5)
+                Text("\(question)").minimumScaleFactor(0.5).padding(.horizontal, 20)
                 Divider()
                 Button{
                     if(connector.turnList.count == 0){
@@ -43,7 +43,7 @@ struct CardView: View {
                     Text("Pass the floor")
                         .font(.body)
                         .fontWeight(.bold)
-                        .padding(.bottom,5)
+                        .padding(.bottom,10)
                 }
             }.onAppear(perform: {
                 let chosenCategories = connector.chosenCategories

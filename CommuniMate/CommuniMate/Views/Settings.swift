@@ -19,10 +19,11 @@ struct Settings: View {
                         NavigationLink(destination: ProfileView()) {
                             Image(uiImage: ((UIImage(data: profile) ?? UIImage(named: "person"))!))
                                 .resizable()
-                                .frame(width: 80, height: 80)
+                                .scaledToFill()
+                                .frame(width: 120, height: 120)
                                 .clipShape(Circle())
+                                .overlay(Circle().stroke(lineWidth:5).foregroundColor(.accentColor))
                                 .padding()
-                                .foregroundColor(Color.white)
                             VStack(alignment:.leading){
                                 Text("\(name)")
                                     .font(.title2)

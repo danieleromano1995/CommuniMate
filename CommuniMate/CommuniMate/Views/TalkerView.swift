@@ -14,6 +14,13 @@ struct TalkerView: View {
     @State var timeRemaining = 300
     @State private var showingAlert = false
     @State private var returnMain = false
+    @State private var tips : TipsLibrary = TipsLibrary()
+    @State private var key1 : String = ""
+    @State private var key2 : String = ""
+    @State private var key3 : String = ""
+    @State private var tip1 : String = ""
+    @State private var tip2 : String = ""
+    @State private var tip3 : String = ""
     func convertTimeMinutesSeconds(timeInSeconds: Int) -> String {
         let minutes = timeInSeconds / 60
         let seconds = timeInSeconds % 60
@@ -30,9 +37,16 @@ struct TalkerView: View {
             NavigationLink(destination: ListenerView().navigationBarBackButtonHidden(true), isActive: $becameListener){
                 EmptyView()
             }
-            NavigationLink(destination: Main().navigationBarBackButtonHidden(true), isActive: $returnMain){
+            NavigationLink(destination: ConversationsMainView().navigationBarBackButtonHidden(true), isActive: $returnMain){
                 EmptyView()
-            }
+            }.onAppear(perform: {
+                key1 = tips.tipKeys[Int.random(in: 0..<tips.tipKeys.count)]
+                key2 = tips.tipKeys[Int.random(in: 0..<tips.tipKeys.count)]
+                key3 = tips.tipKeys[Int.random(in: 0..<tips.tipKeys.count)]
+                tip1 = tips.tips[key1]!
+                tip2 = tips.tips[key2]!
+                tip3 = tips.tips[key3]!
+            })
             VStack(spacing: 50){
                 Text(convertTimeMinutesSeconds(timeInSeconds:timeRemaining))
                     .font(.largeTitle)
@@ -44,66 +58,59 @@ struct TalkerView: View {
                 CardView(becameListener: $becameListener)
                 
                 
-                HStack(){
-                    VStack(spacing: 20){
-                        Image(systemName: "lightbulb")
-                            .foregroundColor(.accentColor)
+                VStack(alignment: .leading, spacing: 30){
+                    HStack{ Image(systemName: key1)
+                            .foregroundColor(Color.gray)
                             .font(.title)
                             .frame(width: 60, height: 60, alignment: .center)
-                        Image(systemName: "arrow.up.message")
-                            .foregroundColor(.accentColor)
-                            .font(.title)
-                            .frame(width: 60, height: 60, alignment: .center)
-                        Image(systemName: "plus.message")
-                            .foregroundColor(.accentColor)
-                            .font(.title)
-                            .frame(width: 60, height: 60, alignment: .center)
+                        Text(tip1)
+                            .font(.callout)
+                            .fontWeight(.regular)
+                            .foregroundColor(Color.gray)
+                            .lineLimit(3)
+                            .minimumScaleFactor(0.5)
                     }
-                    VStack(alignment: .leading, spacing: 20){
-                        VStack(alignment: .leading){
-                            Text("Idea!")
-                                .font(.callout)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.black)
-                            Text("Inclusion starts with a good\nconversation.")
-                                .font(.callout)
-                                .fontWeight(.regular)
-                                .foregroundColor(Color.gray)
-                            
-                        }
-                        VStack(alignment: .leading){
-                            Text("Idea!")
-                                .font(.callout)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.black)
-                            Text("Inclusion starts with a good\nconversation.")
-                                .font(.callout)
-                                .fontWeight(.regular)
-                                .foregroundColor(Color.gray)
-                        }
-                        VStack(alignment: .leading){
-                            Text("Idea!")
-                                .font(.callout)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.black)
-                            Text("Inclusion starts with a good\nconversation.")
-                                .font(.callout)
-                                .fontWeight(.regular)
-                                .foregroundColor(Color.gray)
-                        }
+                    HStack{
+                        Image(systemName: key2)
+                            .foregroundColor(Color.gray)
+                            .font(.title)
+                            .frame(width: 60, height: 60, alignment: .center)
+                        Text(tip2)
+                            .font(.callout)
+                            .fontWeight(.regular)
+                            .foregroundColor(Color.gray)
+                            .lineLimit(3)
+                            .minimumScaleFactor(0.5)
                     }
-                }
-                
+                    HStack{
+                        Image(systemName: key3)
+                            .foregroundColor(Color.gray)
+                            .font(.title)
+                            .frame(width: 60, height: 60, alignment: .center)
+                        Text(tip3)
+                            .font(.callout)
+                            .fontWeight(.regular)
+                            .foregroundColor(Color.gray)
+                            .lineLimit(3)
+                            .minimumScaleFactor(0.5)
+                    
+                        
+                    }
+                    
+                }.padding(.leading,10).padding(.trailing,20)
             }.navigationTitle("It's your turn!").toolbar {
                 ToolbarItem{
                     Button("Exit"){
                         showingAlert = true
                     }.alert("Do you really wanna leave a conversation\nbefore it's over?", isPresented: $showingAlert){
                         Button("Leave", role: .destructive) {
-                            let talker = connector.turnList[Int.random(in: 0..<connector.turnList.count)]
-                            print("\(talker.displayName)")
-                            connector.sendList(to: [talker])
-                            connector.sendTalker(to: talker)
+                            if(connector.connectedPeers.count != 0){
+                                let talker = connector.turnList[Int.random(in: 0..<connector.turnList.count)]
+                                print("\(talker.displayName)")
+                                connector.sendList(to: [talker])
+                                connector.sendTalker(to: talker)
+                            }
+                            connector.stopAdvertising()
                             returnMain = true
                             connector.disconnect()
                         }

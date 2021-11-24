@@ -30,18 +30,20 @@ struct Loading: View {
             }
             Color.accentColor.edgesIgnoringSafeArea(.all)
             VStack{
-                ActivityIndicatorView(isVisible: $isLoading, type: .growingArc(Color.white)).frame(width: 100, height: 100)
-                Text("While you are waiting here are some fun facts :").fontWeight(.bold).font(.title2)
-                Text("\(tips)").font(.body)
+                ActivityIndicatorView(isVisible: $isLoading, type: .growingArc(Color.white)).frame(width: 100, height: 100).padding(.bottom, 200)
+                Text("While you are waiting,\nhere are some fun facts :").fontWeight(.bold).font(.title2).foregroundColor(Color.white)
+                Text("\(tips)").font(.body).foregroundColor(Color.white).lineLimit(10).minimumScaleFactor(0.5).padding(20)
             }.onAppear(perform: {
                     Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
                         if(connector.allReady){
                             print(isHost)
                             if(isHost){
+                                print(connector.turnList)
                                 let talker = connector.turnList[Int.random(in: 0..<connector.turnList.count)]
                                 if (talker == connector.myPeerId){
                                     connector.talkersList.append(talker.displayName)
                                     connector.send(profile: Profile(name: self.name, pronouns: self.pronouns, profile: self.profile))
+                                    
                                 }
                                 print("TALKER: \(talker.displayName)")
                                 connector.sendTalker(to: talker)

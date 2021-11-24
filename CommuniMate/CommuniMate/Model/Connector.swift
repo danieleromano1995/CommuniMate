@@ -18,6 +18,7 @@ enum Kind : Codable{
     case list
     case profile
     case left
+    case host
 }
 
 struct Profile : Codable{
@@ -146,6 +147,17 @@ class Connector : NSObject, ObservableObject{
         
     }
     
+    func sendHost(){
+        let message = Message(kind: .host)
+        if !session.connectedPeers.isEmpty{
+            do {
+                let data = try JSONEncoder().encode(message)
+                try session.send(data, toPeers: session.connectedPeers, with: .reliable)
+            } catch {
+                print("Error for sending: \(String(describing: error))")
+            }
+        }
+    }
     
     func sendReady(){
         let message = Message(kind: .start)
@@ -161,6 +173,7 @@ class Connector : NSObject, ObservableObject{
     
     func sendCategories(Categories : [String]){
         let message = Message(kind: .categories)
+        chosenCategories = Categories
         message.categories = Categories
         if !session.connectedPeers.isEmpty{
             do {
@@ -287,6 +300,7 @@ extension Connector: MCSessionDelegate {
                    case .start:
                        print("Start")
                        self.isStarting = true
+                       self.turnList = self.connectedPeers
                    case .categories:
                        print("Categories")
                        self.chosenCategories.append(contentsOf: message.categories)
@@ -295,8 +309,8 @@ extension Connector: MCSessionDelegate {
                        self.readyCounter += 1
                        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
                            if(self.readyCounter == (self.connectedPeers.count + 1)){
-                               self.allReady = true
                                self.turnList = self.connectedPeers
+                               self.allReady = true
                                self.turnList.append(self.myPeerId)
                                print(self.turnList.map(\.displayName))
                                print("Ready Man")
@@ -339,6 +353,8 @@ extension Connector: MCSessionDelegate {
                                }
                            }
                        
+                   case .host:
+                       session.disconnect()
                    }
         }
         

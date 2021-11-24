@@ -11,6 +11,7 @@ struct Host: View {
     @EnvironmentObject var connector : Connector
     @Binding var isHost : Bool
     @Binding var isStarting : Bool
+    @State private var showAlert = false
     var body: some View {
         NavigationLink(destination: Categories(isHost: $isHost).navigationBarBackButtonHidden(true), isActive: $isStarting){
             EmptyView()
@@ -33,9 +34,17 @@ struct Host: View {
                 HStack{
                     Image(systemName: "chevron.left").foregroundColor(.accentColor)
                     Button("Back"){
-                        isHost = false
-                        connector.stopAdvertising()
-                        connector.disconnect()
+                        showAlert = true
+                    }.alert("You are the Host, do you\nreally want to end this session?", isPresented: $showAlert){
+                        Button("Leave", role: .destructive) {
+                            connector.sendHost()
+                            connector.stopAdvertising()
+                            isHost = false
+                            connector.disconnect()
+                        }
+                        Button("Cancel", role: .cancel){
+                            showAlert = false
+                        }
                     }
                 }
             }

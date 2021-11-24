@@ -10,13 +10,13 @@ import SwiftUI
 struct Main: View {
     @EnvironmentObject var connector : Connector
     var body: some View {
-            TabView(selection: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Selection@*/.constant(1)/*@END_MENU_TOKEN@*/) {
+            TabView{
                 ConversationsMainView().tabItem {
                     Image(systemName: "message.circle.fill")
-                    Text("Conversations") }.tag(1)
+                    Text("Conversations") }
                 Settings().tabItem {
                     Image(systemName: "gearshape.circle.fill")
-                    Text("Settings") }.tag(2)
+                    Text("Settings") }
             }.navigationBarHidden(true)
                 .navigationBarTitle("").onAppear {
                    

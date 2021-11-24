@@ -43,6 +43,13 @@ struct ProfileView: View {
                         }
                     }.pickerStyle(.inline)
                 }
+            }.toolbar{
+                ToolbarItem{
+                    Button("Save"){
+                        let data = image!.jpegData(compressionQuality: 1.0)
+                        profile = data!
+                    }
+                }
             }
             .onAppear(perform: {
                 self.image = UIImage(data: profile)!
