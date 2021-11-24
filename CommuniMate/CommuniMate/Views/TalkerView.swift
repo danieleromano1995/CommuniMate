@@ -21,6 +21,8 @@ struct TalkerView: View {
     @State private var tip1 : String = ""
     @State private var tip2 : String = ""
     @State private var tip3 : String = ""
+    @State private var showFinish = false
+    
     func convertTimeMinutesSeconds(timeInSeconds: Int) -> String {
         let minutes = timeInSeconds / 60
         let seconds = timeInSeconds % 60
@@ -55,7 +57,12 @@ struct TalkerView: View {
                     .onReceive(timer){_ in
                         timeRemaining -= 1
                     }
-                CardView(becameListener: $becameListener)
+                CardView(becameListener: $becameListener, showFinish: $showFinish
+                ).alert("You have finished the conversation successfully!", isPresented: $showFinish, actions: {
+                    Button("Ok", role: .cancel){
+                        returnMain.toggle()
+                    }
+                })
                 
                 
                 VStack(alignment: .leading, spacing: 30){
@@ -104,7 +111,7 @@ struct TalkerView: View {
                         showingAlert = true
                     }.alert("Do you really wanna leave a conversation\nbefore it's over?", isPresented: $showingAlert){
                         Button("Leave", role: .destructive) {
-                            if(connector.connectedPeers.count != 0){
+                            if(connector.turnList.count != 0){
                                 let talker = connector.turnList[Int.random(in: 0..<connector.turnList.count)]
                                 print("\(talker.displayName)")
                                 connector.sendList(to: [talker])

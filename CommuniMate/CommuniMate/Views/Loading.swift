@@ -39,7 +39,8 @@ struct Loading: View {
                             print(isHost)
                             if(isHost){
                                 print(connector.turnList)
-                                let talker = connector.turnList[Int.random(in: 0..<connector.turnList.count)]
+//                                let talker = connector.turnList[Int.random(in: 0..<connector.turnList.count)]
+                                let talker = connector.myPeerId
                                 if (talker == connector.myPeerId){
                                     connector.talkersList.append(talker.displayName)
                                     connector.send(profile: Profile(name: self.name, pronouns: self.pronouns, profile: self.profile))

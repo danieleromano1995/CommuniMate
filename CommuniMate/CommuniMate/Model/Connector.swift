@@ -19,6 +19,7 @@ enum Kind : Codable{
     case profile
     case left
     case host
+    case finish
 }
 
 struct Profile : Codable{
@@ -65,6 +66,7 @@ class Connector : NSObject, ObservableObject{
     @Published var allReady : Bool = false
     @Published var talkersList : [String] = []
     @Published var currentTalker : Profile? = Profile(name: "", pronouns: "",profile: Data())
+    @Published var isFinished = false
     
     override init() {
            session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
@@ -159,6 +161,17 @@ class Connector : NSObject, ObservableObject{
         }
     }
     
+    func sendFinish(){
+        let message = Message(kind: .finish)
+        if !session.connectedPeers.isEmpty{
+            do {
+                let data = try JSONEncoder().encode(message)
+                try session.send(data, toPeers: session.connectedPeers, with: .reliable)
+            } catch {
+                print("Error for sending: \(String(describing: error))")
+            }
+        }
+    }
     func sendReady(){
         let message = Message(kind: .start)
         if !session.connectedPeers.isEmpty{
@@ -170,7 +183,6 @@ class Connector : NSObject, ObservableObject{
             }
         }
     }
-    
     func sendCategories(Categories : [String]){
         let message = Message(kind: .categories)
         chosenCategories = Categories
@@ -355,6 +367,11 @@ extension Connector: MCSessionDelegate {
                        
                    case .host:
                        session.disconnect()
+                   case .finish:
+                       print("Session finished")
+                       self.isFinished = true
+//                       self.stopAdvertising()
+//                       self.disconnect()
                    }
         }
         

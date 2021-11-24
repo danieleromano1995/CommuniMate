@@ -19,7 +19,8 @@ struct ListenerView: View {
     @State private var tip1 : String = ""
     @State private var tip2 : String = ""
     @State private var tip3 : String = ""
-
+    @State private var showFinish = false
+    
     var body: some View {
         ZStack{
             NavigationLink(destination: TalkerView().navigationBarBackButtonHidden(true),isActive: $becameTalker){
@@ -44,11 +45,21 @@ struct ListenerView: View {
                     }
                     Text("is speaking!")
                         .font(.title2)
-                        .fontWeight(.regular)
+                        .fontWeight(.regular).alert("You have finished the conversation successfully!", isPresented: $showFinish, actions: {
+                            Button("Ok", role: .cancel){
+                                returnMain.toggle()
+//                                connector.stopAdvertising()
+//                                connector.disconnect()
+                            }
+                        })
                 }.onAppear(perform: {
                     Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { timer in
                         if(connector.isTalker){
                             becameTalker.toggle()
+                            timer.invalidate()
+                        }
+                        if(connector.isFinished){
+                            showFinish.toggle()
                             timer.invalidate()
                         }
                     }

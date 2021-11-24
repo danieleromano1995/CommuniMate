@@ -13,12 +13,9 @@ struct CardView: View {
     @State var name : String = ""
     @State var question : String = ""
     @Binding var becameListener : Bool
-    @State var finish : Bool = false
+    @Binding var showFinish : Bool
     var body: some View {
         ZStack {
-            NavigationLink(destination: Text("Finish"), isActive: $finish){
-                EmptyView()
-            }
             RoundedRectangle(cornerRadius: 14)
                 .fill(Color.white)
             VStack(spacing: 15){
@@ -30,7 +27,10 @@ struct CardView: View {
                 Divider()
                 Button{
                     if(connector.turnList.count == 0){
-                        finish.toggle()
+                        connector.sendFinish()
+                        showFinish.toggle()
+//                        connector.disconnect()
+//                        connector.stopAdvertising()
                     }else{
                         print("\(connector.turnList.description)")
                     let talker = connector.turnList[Int.random(in: 0..<connector.turnList.count)]
